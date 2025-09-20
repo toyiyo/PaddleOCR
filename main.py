@@ -7,13 +7,13 @@ import httpx
 from paddleocr import PaddleOCR
 from PIL import Image
 
-# Single OCR instance (English-centric, no orientation / unwarp for speed)
+# Single OCR instance optimized for product labels and packaging
 OCR = PaddleOCR(
-    use_angle_cls=False,
+    use_angle_cls=True,      # Enable rotation detection for photos taken at different angles
     use_gpu=False,
     lang="en",
-    use_doc_unwarping=False,
-    use_textline_orientation=False
+    use_doc_unwarping=True,  # Help with curved surfaces like bottles
+    use_textline_orientation=False  # Keep false as product text is typically horizontal
 )
 
 app = FastAPI(title="PaddleOCR Server", version="1.0")

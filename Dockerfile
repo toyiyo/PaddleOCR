@@ -1,8 +1,8 @@
 FROM python:3.11-slim
 
-# System deps for Pillow, OpenCV-lite bits, and Paddle OCR runtime
+# System deps for Pillow, OpenCV-lite bits, Paddle OCR runtime, and healthcheck
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libglib2.0-0 libsm6 libxext6 libxrender1 libgl1 ca-certificates wget \
+    libglib2.0-0 libsm6 libxext6 libxrender1 libgl1 ca-certificates wget curl \
  && rm -rf /var/lib/apt/lists/*
 
 # Faster pip, no cache
