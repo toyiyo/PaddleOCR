@@ -10,7 +10,6 @@ from PIL import Image
 # Single OCR instance optimized for product labels and packaging
 OCR = PaddleOCR(
     use_angle_cls=True,      # Enable rotation detection for photos taken at different angles
-    use_gpu=False,
     lang="en",
     use_doc_unwarping=True   # Help with curved surfaces like bottles
 )
