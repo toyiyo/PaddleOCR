@@ -17,4 +17,5 @@ albucore
 packaging
 fastapi==0.115.0
 uvicorn[standard]==0.30.6
+paddlepaddle==2.5.2
 paddleocr==3.0.0

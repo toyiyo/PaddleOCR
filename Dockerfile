@@ -13,10 +13,8 @@ ENV PIP_NO_CACHE_DIR=1 \
 WORKDIR /app
 COPY requirements.txt /app/
 
-# Install Paddle dependencies first
-RUN pip install --upgrade pip && \
-    pip install paddlepaddle-cpu && \
-    pip install -r requirements.txt
+# Install dependencies
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY main.py /app/
 EXPOSE 8000
