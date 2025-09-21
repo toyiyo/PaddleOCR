@@ -7,13 +7,13 @@ import httpx
 from paddleocr import PaddleOCR
 from PIL import Image
 
-# Single OCR instance (English-centric, no orientation / unwarp for speed)
+# Single OCR instance optimized for product labels and packaging
 OCR = PaddleOCR(
-    use_angle_cls=False,
+    use_angle_cls=True,      # Enable rotation detection for photos taken at different angles
     use_gpu=False,
     lang="en",
-    use_doc_unwarping=False,
-    use_textline_orientation=False
+    use_doc_unwarping=True,  # Help with curved surfaces like bottles
+    use_textline_orientation=False  # Keep false as product text is typically horizontal
 )
 
 app = FastAPI(title="PaddleOCR Server", version="1.0")
@@ -35,7 +35,8 @@ def _run_ocr(img_bytes: bytes):
     # OCR.predict can accept bytes-like path? We'll pass the PIL image's array:
     import numpy as np
     arr = np.array(im)
-    result = OCR.ocr(arr, cls=False)
+    # Use angle classifier as configured in PaddleOCR instance
+    result = OCR.ocr(arr, cls=OCR.use_angle_cls)
     out = []
     # result is list per page; we only pass one image
     for line in result[0]:
