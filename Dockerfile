@@ -15,7 +15,7 @@ COPY requirements.txt /app/
 
 # Install Paddle dependencies first
 RUN pip install --upgrade pip && \
-    pip install "paddlepaddle==3.1.1" -i https://mirror.baidu.com/pypi/simple && \
+    pip install paddlepaddle-cpu && \
     pip install -r requirements.txt
 
 COPY main.py /app/
