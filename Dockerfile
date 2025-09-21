@@ -13,11 +13,10 @@ ENV PIP_NO_CACHE_DIR=1 \
 WORKDIR /app
 COPY requirements.txt /app/
 
-# Install PaddleOCR and friends (CPU)
-# NOTE: PaddleOCR brings its own Paddle dependencies for manylinux CPU wheels.
-# If you hit issues, install paddlepaddle-cpu explicitly:
-#   pip install "paddlepaddle==3.1.1" -i https://mirror.baidu.com/pypi/simple
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Install Paddle dependencies first
+RUN pip install --upgrade pip && \
+    pip install "paddlepaddle==3.1.1" -i https://mirror.baidu.com/pypi/simple && \
+    pip install -r requirements.txt
 
 COPY main.py /app/
 EXPOSE 8000
