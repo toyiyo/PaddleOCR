@@ -35,7 +35,8 @@ def _run_ocr(img_bytes: bytes):
     # OCR.predict can accept bytes-like path? We'll pass the PIL image's array:
     import numpy as np
     arr = np.array(im)
-    result = OCR.ocr(arr, cls=False)
+    # Use angle classifier as configured in PaddleOCR instance
+    result = OCR.ocr(arr, cls=OCR.use_angle_cls)
     out = []
     # result is list per page; we only pass one image
     for line in result[0]:
